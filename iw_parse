@@ -1,0 +1,18 @@
+#! /usr/bin/env python
+
+import sys
+
+from iw_parse import get_parsed_cells, print_cells
+
+def main():
+    """ Pretty prints the output of iwlist scan into a table. """
+    parsed_cells = get_parsed_cells(sys.stdin)
+
+    # You can choose which columns to display here, and most importantly
+    # in what order. Of course, they must exist as keys in the dict rules.
+    columns = ["Name", "Address", "Quality", "Channel", "Encryption"]
+
+    print_cells(parsed_cells, columns)
+
+if __name__ == "__main__":
+    main()
