@@ -3,11 +3,24 @@ iw_parse
 
 Parse the output of iwlist scan to get the name, address, quality, channel, and encryption type of all networks broadcasting within your Wireless NIC's reach.
 
+Dependencies
+------------
+
+* [pip](http://www.pip-installer.org/en/latest/installing.html "pip installation guide") - If you don't have pip installed, followed the link.
+
+
+Installation
+------------
+
+```bash
+pip install iw_parse
+```
+
 Usage
 -----
 
 ```bash
-iwlist <INTERFACE_NAME> scan | ./iw_parse
+iwlist <INTERFACE_NAME> scan | iw_parse
 ```
 
 Replace `<INTERFACE_NAME>` with the system name for your wireless NIC. It is usually something like `wlan0`. The command `iwconfig` will list all of your network interfaces.
@@ -15,7 +28,7 @@ Replace `<INTERFACE_NAME>` with the system name for your wireless NIC. It is usu
 Example:
 
 ```bash
-iwlist wlan0 scan | ./iw_parse
+iwlist wlan0 scan | iw_parse
 ```
 
 Acknowledgements
