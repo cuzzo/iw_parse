@@ -1,7 +1,7 @@
 iw_parse
 ========
 
-Parse the output of iwlist scan to get the Name, Address, Quality, Channel, Encryption Type of all networks broadcasting within your Wireless NIC's reach.
+Parse the output of iwlist scan to get the name, address, quality, channel, and encryption type of all networks broadcasting within your Wireless NIC's reach.
 
 Usage
 -----
