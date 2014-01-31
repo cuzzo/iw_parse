@@ -31,6 +31,20 @@ Example:
 iwlist wlan0 scan | iw_parse
 ```
 
+The result should look something like:
+
+```
+Name             Address             Quality   Channel   Encryption
+wireless1        20:AA:4B:34:2C:F5   100 %     11        WEP
+wireless2        00:26:F2:1E:FC:03    84 %     1         WPA v.1
+wireless3        00:1D:D3:6A:3C:60    66 %     6         WEP
+wireless4        20:10:7A:E5:02:98    64 %     1         WEP
+wireless5        CC:A4:62:B7:D2:B0    54 %     8         WPA v.1
+wireless6        30:46:9A:53:3C:76    47 %     11        WPA v.1
+wireless7        A0:21:B7:5F:84:B0    44 %     11        WEP
+wireless8        04:A1:51:18:E8:E0    41 %     6         WPA v.1
+```
+
 Acknowledgements
 ----------------
 
