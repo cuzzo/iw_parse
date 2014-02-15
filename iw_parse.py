@@ -40,7 +40,13 @@ def get_channel(cell):
         The channel of the network.
     """
 
-    return matching_line(cell, "Channel:")
+
+    channel = matching_line(cell, "Channel:")
+    if channel:
+        return channel
+    frequency = matching_line(cell, "Frequency:")
+    channel = re.sub(r".*\(Channel\s(\d{1,2})\).*", r"\1", frequency)
+    return channel
 
 def get_encryption(cell):
     """ Gets the encryption type of a network / cell.
