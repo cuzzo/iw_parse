@@ -7,6 +7,8 @@
 # of each AP (cell) below. They take one argument, the bunch of text
 # describing one cell in iwlist scan and return a property of that cell.
 
+import re
+
 def get_name(cell):
     """ Gets the name / essid of a network / cell.
     @param string cell
