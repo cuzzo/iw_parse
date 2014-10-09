@@ -160,8 +160,9 @@ def print_cells(cells, columns):
 
 def get_parsed_cells(iw_data, rules=None):
     """ Parses iwlist output into a list of networks.
-        @param str iw_data
+        @param list iw_data
             Output from iwlist scan.
+            A list of strings.
 
         @return list
             properties: Name, Address, Quality, Channel, Encryption.
