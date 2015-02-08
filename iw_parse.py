@@ -8,6 +8,7 @@
 # describing one cell in iwlist scan and return a property of that cell.
 
 import re
+import subprocess
 
 def get_name(cell):
     """ Gets the name / essid of a network / cell.
@@ -26,12 +27,29 @@ def get_quality(cell):
         A network / cell from iwlist scan.
 
     @return string
-        The formatted quality of the network.
+        The quality of the network.
     """
 
     quality = matching_line(cell, "Quality=").split()[0].split("/")
-    return str(int(round(float(quality[0]) / float(quality[1]) * 100))) \
-            .rjust(3) + " %"
+    return str(int(round(float(quality[0]) / float(quality[1]) * 100)))
+
+
+def get_signal_level(cell):
+    """ Gets the signal level of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The signal level of the network.
+    """
+
+    signal = matching_line(cell, "Signal level=").split("=")[1].split("/")
+    if len(signal) == 2:
+        return str(int(round(float(signal[0]) / float(signal[1]) * 100)))
+    elif len(signal) == 1:
+        return signal[0]
+    else:
+        return ""
 
 def get_channel(cell):
     """ Gets the channel of a network / cell.
@@ -84,6 +102,17 @@ def get_address(cell):
 
     return matching_line(cell, "Address: ")
 
+def get_bit_rates(cell):
+    """ Gets the bit rate of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The bit rate of the network.
+    """
+
+    return matching_line(cell, "Bit Rates:")
+
 # Here you can choose the way of sorting the table. sortby should be a key of
 # the dictionary rules.
 
@@ -108,14 +137,18 @@ def matching_line(lines, keyword):
 
 def match(line, keyword):
     """ If the first part of line (modulo blanks) matches keyword,
-    returns the end of that line. Otherwise returns None"""
+    returns the end of that line. Otherwise checks if keyword is
+    anywhere in the line and returns that section, else returns None"""
 
     line = line.lstrip()
     length = len(keyword)
     if line[:length] == keyword:
         return line[length:]
     else:
-        return None
+        if keyword in line:
+            return line[line.index(keyword):]
+        else:
+            return None
 
 def parse_cell(cell, rules):
     """ Applies the rules to the bunch of text describing a cell.
@@ -154,6 +187,9 @@ def print_cells(cells, columns):
     for cell in cells:
         cell_properties = []
         for column in columns:
+            if column == 'Quality':
+                # make print nicer
+                cell[column] = cell[column].rjust(3) + " %"
             cell_properties.append(cell[column])
         table.append(cell_properties)
     print_table(table)
@@ -177,6 +213,8 @@ def get_parsed_cells(iw_data, rules=None):
         "Channel": get_channel,
         "Encryption": get_encryption,
         "Address": get_address,
+        "Signal Level": get_signal_level,
+        "Bit Rates": get_bit_rates,
     }
 
     cells = [[]]
@@ -196,3 +234,32 @@ def get_parsed_cells(iw_data, rules=None):
 
     sort_cells(parsed_cells)
     return parsed_cells
+
+def call_iwlist(interface='wlan0'):
+    """ Get iwlist output via subprocess
+        @param string interface
+            interface to scan
+            default is wlan0
+
+        @return string
+            properties: iwlist output
+    """
+    p = subprocess.Popen(['iwlist', interface, 'scanning'],
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return p.stdout.read()
+
+def get_interfaces(interface="wlan0"):
+    """ Get parsed iwlist output
+        @param string interface
+            interface to scan
+            default is wlan0
+
+        @param list columns
+            default data attributes to return
+
+        @return dict
+            properties: dictionary of iwlist attributes
+    """
+    return get_parsed_cells(call_iwlist(interface).split('\n'))
+
+

@@ -10,7 +10,14 @@ def main():
 
     # You can choose which columns to display here, and most importantly
     # in what order. Of course, they must exist as keys in the dict rules.
-    columns = ["Name", "Address", "Quality", "Channel", "Encryption"]
+    columns = [
+        "Name",
+        "Address",
+        "Quality",
+        "Channel",
+        "Signal Level",
+        "Encryption"
+    ]
 
     print_cells(parsed_cells, columns)
 

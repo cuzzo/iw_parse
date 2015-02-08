@@ -45,6 +45,30 @@ wireless7        A0:21:B7:5F:84:B0    44 %     11        WEP
 wireless8        04:A1:51:18:E8:E0    41 %     6         WPA v.1
 ```
 
+Example from Python shell:
+
+```python
+>>> import iw_parse
+>>> networks = iw_parse.get_interfaces(interface='wlan0')
+>>> print networks
+[{'Address': 'F8:1E:DF:F9:B0:0B',
+  'Channel': '3',
+  'Encryption': 'WEP',
+  'Name': 'Francis',
+  'Bit Rates': '144 Mb/s',
+  'Signal Level': '42',
+  'Name': 'Francis',
+  'Quality': '100'},
+ {'Address': '86:1B:5E:33:17:D4',
+  'Channel': '6',
+  'Encryption': 'Open',
+  'Bit Rates': '54 Mb/s',
+  'Signal Level': '72',
+  'Name': 'optimumwifi',
+  'Quality': '100'},
+    ...
+```
+
 Acknowledgements
 ----------------
 
