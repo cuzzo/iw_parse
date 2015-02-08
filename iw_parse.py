@@ -27,12 +27,24 @@ def get_quality(cell):
         A network / cell from iwlist scan.
 
     @return string
-        The formatted quality of the network.
+        The quality of the network.
     """
 
     quality = matching_line(cell, "Quality=").split()[0].split("/")
     return str(int(round(float(quality[0]) / float(quality[1]) * 100)))
 
+
+def get_signal_level(cell):
+    """ Gets the signal level of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The signal level of the network.
+    """
+
+    signal = matching_line(cell, "Signal level=").split("=")[1].split("/")
+    return str(int(round(float(signal[0]) / float(signal[1]) * 100)))
 
 def get_channel(cell):
     """ Gets the channel of a network / cell.
@@ -85,6 +97,17 @@ def get_address(cell):
 
     return matching_line(cell, "Address: ")
 
+def get_bit_rates(cell):
+    """ Gets the bit rate of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The bit rate of the network.
+    """
+
+    return matching_line(cell, "Bit Rates:")
+
 # Here you can choose the way of sorting the table. sortby should be a key of
 # the dictionary rules.
 
@@ -109,14 +132,18 @@ def matching_line(lines, keyword):
 
 def match(line, keyword):
     """ If the first part of line (modulo blanks) matches keyword,
-    returns the end of that line. Otherwise returns None"""
+    returns the end of that line. Otherwise checks if keyword is
+    anywhere in the line and returns that section, else returns None"""
 
     line = line.lstrip()
     length = len(keyword)
     if line[:length] == keyword:
         return line[length:]
     else:
-        return None
+        if keyword in line:
+            return line[line.index(keyword):]
+        else:
+            return None
 
 def parse_cell(cell, rules):
     """ Applies the rules to the bunch of text describing a cell.
@@ -181,6 +208,8 @@ def get_parsed_cells(iw_data, rules=None):
         "Channel": get_channel,
         "Encryption": get_encryption,
         "Address": get_address,
+        "Signal Level": get_signal_level,
+        "Bit Rates": get_bit_rates,
     }
 
     cells = [[]]
