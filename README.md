@@ -45,6 +45,8 @@ wireless7        A0:21:B7:5F:84:B0    44 %     11        WEP
 wireless8        04:A1:51:18:E8:E0    41 %     6         WPA v.1
 ```
 
+Example from Python shell:
+
 ```python
 >>> import iw_parse
 >>> networks = iw_parse.get_interfaces(interface='wlan0')

@@ -21,7 +21,7 @@ def get_name(cell):
 
     return matching_line(cell, "ESSID:")[1:-1]
 
-def get_quality(cell, padding=False):
+def get_quality(cell):
     """ Gets the quality of a network / cell.
     @param string cell
         A network / cell from iwlist scan.
