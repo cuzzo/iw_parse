@@ -8,6 +8,7 @@
 # describing one cell in iwlist scan and return a property of that cell.
 
 import re
+import subprocess
 
 def get_name(cell):
     """ Gets the name / essid of a network / cell.
@@ -20,7 +21,7 @@ def get_name(cell):
 
     return matching_line(cell, "ESSID:")[1:-1]
 
-def get_quality(cell):
+def get_quality(cell, padding=False):
     """ Gets the quality of a network / cell.
     @param string cell
         A network / cell from iwlist scan.
@@ -30,8 +31,8 @@ def get_quality(cell):
     """
 
     quality = matching_line(cell, "Quality=").split()[0].split("/")
-    return str(int(round(float(quality[0]) / float(quality[1]) * 100))) \
-            .rjust(3) + " %"
+    return str(int(round(float(quality[0]) / float(quality[1]) * 100)))
+
 
 def get_channel(cell):
     """ Gets the channel of a network / cell.
@@ -154,6 +155,9 @@ def print_cells(cells, columns):
     for cell in cells:
         cell_properties = []
         for column in columns:
+            if column == 'Quality':
+                # make print nicer
+                cell[column] = cell[column].rjust(3) + " %"
             cell_properties.append(cell[column])
         table.append(cell_properties)
     print_table(table)
@@ -196,3 +200,32 @@ def get_parsed_cells(iw_data, rules=None):
 
     sort_cells(parsed_cells)
     return parsed_cells
+
+def call_iwlist(interface='wlan0'):
+    """ Get iwlist output via subprocess
+        @param string interface
+            interface to scan
+            default is wlan0
+
+        @return string
+            properties: iwlist output
+    """
+    p = subprocess.Popen(['iwlist', interface, 'scanning'],
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return p.stdout.read()
+
+def get_interfaces(interface="wlan0"):
+    """ Get parsed iwlist output
+        @param string interface
+            interface to scan
+            default is wlan0
+
+        @param list columns
+            default data attributes to return
+
+        @return dict
+            properties: dictionary of iwlist attributes
+    """
+    return get_parsed_cells(call_iwlist(interface).split('\n'))
+
+
