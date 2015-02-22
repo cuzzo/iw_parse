@@ -84,9 +84,9 @@ def get_encryption(cell):
         for line in cell:
             matching = match(line,"IE:")
             if matching != None:
-                wpa = match(matching,"WPA Version ")
+                wpa = match(matching,"WPA")
                 if wpa != None:
-                    enc = "WPA v." + wpa
+                    enc = wpa
         if enc == "":
             enc = "WEP"
     return enc
