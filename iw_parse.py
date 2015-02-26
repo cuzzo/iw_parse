@@ -10,6 +10,8 @@
 import re
 import subprocess
 
+VERSION_RGX = re.compile("version\s+\d+", re.IGNORECASE)
+
 def get_name(cell):
     """ Gets the name / essid of a network / cell.
     @param string cell
@@ -83,10 +85,24 @@ def get_encryption(cell):
     else:
         for line in cell:
             matching = match(line,"IE:")
-            if matching != None:
-                wpa = match(matching,"WPA")
-                if wpa != None:
-                    enc = wpa
+            if matching == None:
+                continue
+
+            wpa = match(matching,"WPA")
+            if wpa == None:
+                continue
+
+            version_matches = VERSION_RGX.search(wpa)
+            if len(version_matches.regs) == 1:
+                version = version_matches \
+                    .group(0) \
+                    .lower() \
+                    .replace("version", "") \
+                    .strip()
+                wpa = wpa.replace(version_matches.group(0), "").strip()
+                enc = "{0} v.{1}".format(wpa, version)
+            else:
+                enc = wpa
         if enc == "":
             enc = "WEP"
     return enc
