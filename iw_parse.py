@@ -135,7 +135,7 @@ def get_bit_rates(cell):
 def sort_cells(cells):
     sortby = "Quality"
     reverse = True
-    cells.sort(None, lambda el:el[sortby], reverse)
+    cells.sort(key=lambda el:el[sortby], reverse=reverse)
 
 
 # Below here goes the boring stuff. You shouldn't have to edit anything below
@@ -184,7 +184,7 @@ def parse_cell(cell, rules):
 
 def print_table(table):
     # Functional black magic.
-    widths = map(max, map(lambda l: map(len, l), zip(*table)))
+    widths = list(map(max, map(lambda l: map(len, l), zip(*table))))
 
     justified_table = []
     for line in table:
@@ -194,9 +194,7 @@ def print_table(table):
         justified_table.append(justified_line)
 
     for line in justified_table:
-        for el in line:
-            print el,
-        print
+        print("\t".join(line))
 
 def print_cells(cells, columns):
     table = [columns]
