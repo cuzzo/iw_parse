@@ -32,6 +32,10 @@ def get_quality(cell):
         The quality of the network.
     """
 
+    quality = matching_line(cell, "Quality=")
+    if quality is None:
+        return ""
+    quality = quality.split()[0].split("/")
     quality = matching_line(cell, "Quality=").split()[0].split("/")
     return str(int(round(float(quality[0]) / float(quality[1]) * 100)))
 
@@ -45,7 +49,10 @@ def get_signal_level(cell):
         The signal level of the network.
     """
 
-    signal = matching_line(cell, "Signal level=").split("=")[1].split("/")
+    signal = matching_line(cell, "Signal level=")
+    if signal is  None:
+      return ""
+    signal = signal.split("=")[1].split("/")
     if len(signal) == 2:
         return str(int(round(float(signal[0]) / float(signal[1]) * 100)))
     elif len(signal) == 1:
