@@ -241,7 +241,7 @@ def get_parsed_cells(iw_data, rules=None):
     cells = [[]]
     parsed_cells = []
 
-    for line in iw_data:
+    for line in iw_data.splitlines():
         cell_line = match(line, "Cell ")
         if cell_line != None:
             cells.append([])
