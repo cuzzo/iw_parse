@@ -141,6 +141,17 @@ def get_encryption(cell, emit_version=False):
             enc = "WEP"
     return enc
 
+def get_mode(cell):
+    """ Gets the mode of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The IEEE 802.11 mode of the network.
+    """
+
+    return matching_line(cell, "Extra:ieee_mode=")
+
 def get_address(cell):
     """ Gets the address of a network / cell.
     @param string cell
@@ -249,7 +260,7 @@ def get_parsed_cells(iw_data, rules=None):
             A list of strings.
 
         @return list
-            properties: Name, Address, Quality, Channel, Frequency, Encryption, Signal Level, Noise Level, Bit Rates.
+            properties: Name, Address, Quality, Channel, Frequency, Encryption, Signal Level, Noise Level, Bit Rates, Mode.
     """
 
     # Here's a dictionary of rules that will be applied to the description
@@ -265,6 +276,7 @@ def get_parsed_cells(iw_data, rules=None):
         "Signal Level": get_signal_level,
         "Noise Level": get_noise_level,
         "Bit Rates": get_bit_rates,
+        "Mode": get_mode,
     }
 
     cells = [[]]
