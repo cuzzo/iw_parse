@@ -21,7 +21,10 @@ def get_name(cell):
         The name / essid of the network.
     """
 
-    return matching_line(cell, "ESSID:")[1:-1]
+    essid = matching_line(cell, "ESSID:")
+    if not essid:
+        return ""
+    return essid[1:-1]
 
 def get_quality(cell):
     """ Gets the quality of a network / cell.
