@@ -49,15 +49,30 @@ def get_signal_level(cell):
     """
 
     signal = matching_line(cell, "Signal level=")
-    if signal is  None:
+    if signal is None:
       return ""
     signal = signal.split("=")[1].split("/")
     if len(signal) == 2:
         return str(int(round(float(signal[0]) / float(signal[1]) * 100)))
     elif len(signal) == 1:
-        return signal[0]
+        return signal[0].split(' ')[0]
     else:
         return ""
+
+def get_noise_level(cell):
+    """ Gets the noise level of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The noise level of the network.
+    """
+
+    noise = matching_line(cell, "Noise level=")
+    if noise is None:
+        return ""
+    noise = noise.split("=")[1]
+    return noise.split(' ')[0]
 
 def get_channel(cell):
     """ Gets the channel of a network / cell.
@@ -234,7 +249,7 @@ def get_parsed_cells(iw_data, rules=None):
             A list of strings.
 
         @return list
-            properties: Name, Address, Quality, Channel, Frequency, Encryption.
+            properties: Name, Address, Quality, Channel, Frequency, Encryption, Signal Level, Noise Level, Bit Rates.
     """
 
     # Here's a dictionary of rules that will be applied to the description
@@ -248,6 +263,7 @@ def get_parsed_cells(iw_data, rules=None):
         "Encryption": get_encryption,
         "Address": get_address,
         "Signal Level": get_signal_level,
+        "Noise Level": get_noise_level,
         "Bit Rates": get_bit_rates,
     }
 
