@@ -39,7 +39,6 @@ def get_quality(cell):
     quality = matching_line(cell, "Quality=").split()[0].split("/")
     return str(int(round(float(quality[0]) / float(quality[1]) * 100)))
 
-
 def get_signal_level(cell):
     """ Gets the signal level of a network / cell.
     @param string cell
@@ -69,7 +68,6 @@ def get_channel(cell):
         The channel of the network.
     """
 
-
     channel = matching_line(cell, "Channel:")
     if channel:
         return channel
@@ -77,7 +75,21 @@ def get_channel(cell):
     channel = re.sub(r".*\(Channel\s(\d{1,2})\).*", r"\1", frequency)
     return channel
 
-def get_encryption(cell):
+def get_frequency(cell):
+    """ Gets the frequency of a network / cell.
+    @param string cell
+        A network / cell from iwlist scan.
+
+    @return string
+        The frequency of the network.
+    """
+
+    frequency = matching_line(cell, "Frequency:")
+    if frequency is None:
+        return ""
+    return frequency.split()[0]
+
+def get_encryption(cell, emit_version=False):
     """ Gets the encryption type of a network / cell.
     @param string cell
         A network / cell from iwlist scan.
@@ -222,7 +234,7 @@ def get_parsed_cells(iw_data, rules=None):
             A list of strings.
 
         @return list
-            properties: Name, Address, Quality, Channel, Encryption.
+            properties: Name, Address, Quality, Channel, Frequency, Encryption.
     """
 
     # Here's a dictionary of rules that will be applied to the description
@@ -232,6 +244,7 @@ def get_parsed_cells(iw_data, rules=None):
         "Name": get_name,
         "Quality": get_quality,
         "Channel": get_channel,
+        "Frequency": get_frequency,
         "Encryption": get_encryption,
         "Address": get_address,
         "Signal Level": get_signal_level,
@@ -280,5 +293,4 @@ def get_interfaces(interface="wlan0"):
             properties: dictionary of iwlist attributes
     """
     return get_parsed_cells(call_iwlist(interface).split('\n'))
-
 
