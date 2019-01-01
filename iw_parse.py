@@ -137,7 +137,14 @@ def get_encryption(cell, emit_version=False):
                     .replace("version", "") \
                     .strip()
                 wpa = wpa.replace(version_matches.group(0), "").strip()
-                enc = "{0} v.{1}".format(wpa, version)
+                if wpa == "":
+                    wpa = "WPA"
+                if emit_version:
+                    enc = "{0} v.{1}".format(wpa, version)
+                else:
+                    enc = wpa
+                if wpa == "WPA2":
+                    return enc
             else:
                 enc = wpa
         if enc == "":
