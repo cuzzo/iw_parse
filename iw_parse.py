@@ -160,7 +160,10 @@ def get_mode(cell):
         The IEEE 802.11 mode of the network.
     """
 
-    return matching_line(cell, "Extra:ieee_mode=")
+    mode = matching_line(cell, "Extra:ieee_mode=")
+    if mode is None:
+        return ""
+    return mode
 
 def get_address(cell):
     """ Gets the address of a network / cell.
