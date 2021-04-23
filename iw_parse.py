@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Hugo Chargois - 17 jan. 2010 - v.0.1
+# Hugo Chargois - 22 Apr. 2021 - v0.0.4
 # Parses the output of iwlist scan into a table
 
 # You can add or change the functions to parse the properties
@@ -319,7 +319,7 @@ def call_iwlist(interface='wlan0'):
         @return string
             properties: iwlist output
     """
-    return subprocess.check_output(['iwlist', interface, 'scanning'])
+    return subprocess.check_output(['iwlist', interface, 'scanning'],text=True)
 
 def get_interfaces(interface="wlan0"):
     """ Get parsed iwlist output
@@ -334,4 +334,3 @@ def get_interfaces(interface="wlan0"):
             properties: dictionary of iwlist attributes
     """
     return get_parsed_cells(call_iwlist(interface).split('\n'))
-

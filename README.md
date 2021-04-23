@@ -6,7 +6,7 @@ Parse the output of iwlist scan to get the name, address, quality, channel, and 
 Dependencies
 ------------
 
-* [pip](http://www.pip-installer.org/en/latest/installing.html "pip installation guide") - If you don't have pip installed, followed the link.
+* [pip](http://www.pip-installer.org/en/latest/installing.html "pip installation guide") - If you don't have pip installed, follow this link.
 
 
 Installation
