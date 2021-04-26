@@ -8,12 +8,13 @@ Dependencies
 
 * [pip](http://www.pip-installer.org/en/latest/installing.html "pip installation guide") - If you don't have pip installed, follow this link.
 
+* wireless-tools - provides the Linux utility `iwlist`.
 
 Installation
 ------------
 
 ```bash
-pip install iw_parse
+sudo -H pip install --upgrade iw_parse
 ```
 
 Usage

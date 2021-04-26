@@ -10,6 +10,10 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+params = {
+    "scripts" : ['iw_parse/iw_parse']
+}
+
 setuptools.setup(
     name='iw_parse',
     version='0.0.4',
@@ -39,5 +43,6 @@ setuptools.setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8'
-    ]
+    ],
+    **params
 )
