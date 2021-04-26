@@ -319,7 +319,7 @@ def call_iwlist(interface='wlan0'):
         @return string
             properties: iwlist output
     """
-    return subprocess.check_output(['iwlist', interface, 'scanning'],text=True)
+    return subprocess.check_output(['iwlist', interface, 'scanning'])
 
 def get_interfaces(interface="wlan0"):
     """ Get parsed iwlist output
@@ -333,4 +333,7 @@ def get_interfaces(interface="wlan0"):
         @return dict
             properties: dictionary of iwlist attributes
     """
-    return get_parsed_cells(call_iwlist(interface).split('\n'))
+    try:
+        return get_parsed_cells(call_iwlist(interface).split('\n'))
+    except TypeError:
+        return get_parsed_cells(call_iwlist(interface).decode('utf-8').split('\n'))
