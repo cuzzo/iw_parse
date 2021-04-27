@@ -21,6 +21,8 @@ Installation
 
 Recommended - using pip:
 
+Note: If using Python 3, try replacing `pip` with `pip3` if errors occur. 
+
 ```bash
 sudo -H pip install --upgrade iw_parse
 ```
