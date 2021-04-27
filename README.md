@@ -19,8 +19,18 @@ sudo apt install wireless-tools
 Installation
 ------------
 
+Recommended - using pip:
+
 ```bash
 sudo -H pip install --upgrade iw_parse
+```
+
+Alternative - manually with git:
+```bash
+git clone https://github.com/cuzzo/iw_parse.git
+cd iw_parse
+sudo -H pip install --upgrade build setuptools
+sudo -H pip install .
 ```
 
 Usage
