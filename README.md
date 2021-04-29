@@ -67,7 +67,7 @@ wireless8        04:A1:51:18:E8:E0    41 %     6         WPA v.1
 Example from Python 3 shell:
 
 ```python
->>> import iw_parse
+>>> from iw_parse import iw_parse
 >>> from pprint import pprint
 >>> networks = iw_parse.get_interfaces(interface='wlan0')
 >>> pprint(networks)
@@ -92,7 +92,7 @@ Example from Python 3 shell:
 Example from (legacy) Python 2 shell:
 
 ```python
->>> import iw_parse
+>>> from iw_parse import iw_parse
 >>> networks = iw_parse.get_interfaces(interface='wlan0')
 >>> print networks
 [{'Address': 'F8:1E:DF:F9:B0:0B',
