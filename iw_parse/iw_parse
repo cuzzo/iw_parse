@@ -1,8 +1,8 @@
-#! /usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 
-from iw_parse import get_parsed_cells, print_cells
+from iw_parse.iw_parse import get_parsed_cells, print_cells
 
 def main():
     """ Pretty prints the output of iwlist scan into a table. """

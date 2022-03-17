@@ -3,17 +3,40 @@ iw_parse
 
 Parse the output of iwlist scan to get the name, address, quality, channel, and encryption type of all networks broadcasting within your Wireless NIC's reach.
 
+Verified working in Python 3.7 and higher. If you need python2 support, go back to the v0.0.4 release.
+
 Dependencies
 ------------
 
-* [pip](http://www.pip-installer.org/en/latest/installing.html "pip installation guide") - If you don't have pip installed, followed the link.
+* [python3](https://www.python.org) - Version 3.7.x or higher
 
+* [pip](https://pip.pypa.io/en/latest/installing/ "pip installation guide") - If you don't have pip installed, follow this link. You should be able to install is this way as well:
+
+```bash
+sudo apt install python3-pip
+```
+
+* [wireless-tools](https://packages.ubuntu.com/focal/wireless-tools) - provides the Linux utility `iwlist`. If not installed, you can run the following on Ubuntu/Raspberry Pi OS/Debian-based systems:
+
+```bash
+sudo apt install wireless-tools
+```
 
 Installation
 ------------
 
+Recommended - using pip:
+
 ```bash
-pip install iw_parse
+sudo -H python3 -m pip install --upgrade iw_parse
+```
+
+Alternative - manually with git:
+```bash
+git clone https://github.com/cuzzo/iw_parse.git
+cd iw_parse
+sudo -H python3 -m pip install --upgrade build setuptools
+sudo -H python3 -m pip install .
 ```
 
 Usage
@@ -45,10 +68,35 @@ wireless7        A0:21:B7:5F:84:B0    44 %     11        WEP
 wireless8        04:A1:51:18:E8:E0    41 %     6         WPA v.1
 ```
 
-Example from Python shell:
+Example from Python 3 shell:
 
 ```python
->>> import iw_parse
+>>> from iw_parse import iw_parse
+>>> from pprint import pprint
+>>> networks = iw_parse.get_interfaces(interface='wlan0')
+>>> pprint(networks)
+[{'Address': 'F8:1E:DF:F9:B0:0B',
+  'Channel': '3',
+  'Encryption': 'WEP',
+  'Name': 'Francis',
+  'Bit Rates': '144 Mb/s',
+  'Signal Level': '42',
+  'Name': 'Francis',
+  'Quality': '100'},
+ {'Address': '86:1B:5E:33:17:D4',
+  'Channel': '6',
+  'Encryption': 'Open',
+  'Bit Rates': '54 Mb/s',
+  'Signal Level': '72',
+  'Name': 'optimumwifi',
+  'Quality': '100'},
+    ...
+```
+
+Example from (legacy) Python 2 shell:
+
+```python
+>>> from iw_parse import iw_parse
 >>> networks = iw_parse.get_interfaces(interface='wlan0')
 >>> print networks
 [{'Address': 'F8:1E:DF:F9:B0:0B',
@@ -73,6 +121,7 @@ Acknowledgements
 ----------------
 
 * The vast majority of iw_parse was written by Hugo Chargois.
+* pip installation scripts and Python 3 compatiblity written by [Kyle Krattiger](https://gitlab.com/mrmusic25)
 
 License
 -------
