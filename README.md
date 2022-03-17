@@ -3,12 +3,18 @@ iw_parse
 
 Parse the output of iwlist scan to get the name, address, quality, channel, and encryption type of all networks broadcasting within your Wireless NIC's reach.
 
-Verified working in both Python 2 and Python 3.
+Verified working in Python 3.7 and higher. If you need python2 support, go back to the v0.0.4 release.
 
 Dependencies
 ------------
 
-* [pip](https://pip.pypa.io/en/latest/installing/ "pip installation guide") - If you don't have pip installed, follow this link.
+* [python3](https://www.python.org) - Version 3.7.x or higher
+
+* [pip](https://pip.pypa.io/en/latest/installing/ "pip installation guide") - If you don't have pip installed, follow this link. You should be able to install is this way as well:
+
+```bash
+sudo apt install python3-pip
+```
 
 * [wireless-tools](https://packages.ubuntu.com/focal/wireless-tools) - provides the Linux utility `iwlist`. If not installed, you can run the following on Ubuntu/Raspberry Pi OS/Debian-based systems:
 
@@ -21,18 +27,16 @@ Installation
 
 Recommended - using pip:
 
-Note: If using Python 3, try replacing `pip` with `pip3` if errors occur. 
-
 ```bash
-sudo -H pip install --upgrade iw_parse
+sudo -H python3 -m pip install --upgrade iw_parse
 ```
 
 Alternative - manually with git:
 ```bash
 git clone https://github.com/cuzzo/iw_parse.git
 cd iw_parse
-sudo -H pip install --upgrade build setuptools
-sudo -H pip install .
+sudo -H python3 -m pip install --upgrade build setuptools
+sudo -H python3 -m pip install .
 ```
 
 Usage

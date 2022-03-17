@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-# Hugo Chargois - 26 Apr. 2021 - v0.0.4
+# Hugo Chargois - 17 Mar. 2022 - v0.0.5
 # setup.py written by Kyle Krattiger (gitlab.com/mrmusic25)
 
 # Script to allow installation with pip
@@ -16,7 +16,7 @@ params = {
 
 setuptools.setup(
     name='iw_parse',
-    version='0.0.4',
+    version='0.0.5',
     description='iwlist scan for Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -32,17 +32,11 @@ setuptools.setup(
         'License :: OSI Approved :: BSD License',
         'Development Status :: 5 - Production/Stable',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     **params
 )
